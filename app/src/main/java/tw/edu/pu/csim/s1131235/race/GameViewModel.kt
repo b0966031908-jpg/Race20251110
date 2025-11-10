@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
+
 class GameViewModel : ViewModel() {
     var screenWidthPx by mutableStateOf(0f)
         private set
@@ -21,7 +23,8 @@ class GameViewModel : ViewModel() {
 
     var circleY by mutableStateOf(0f)
 
-
+    var score by mutableStateOf(0)
+        private set
 
     // 設定螢幕寬度與高度
     fun SetGameSize(w: Float, h: Float) {
@@ -34,6 +37,10 @@ class GameViewModel : ViewModel() {
         circleX = 100f
         circleY = screenHeightPx - 100f
 
+
+        val circleRadius = 50f // 假設圓球半徑是 50f (直徑 100f)
+        val boundaryX = screenWidthPx - circleRadius // 右邊界觸發點
+
         viewModelScope.launch {
             while (gameRunning) { // 每0.1秒循環
                 delay(100)
@@ -41,6 +48,7 @@ class GameViewModel : ViewModel() {
 
                 if (circleX >= screenWidthPx - 100){
                     circleX = 100f
+                    score++
                 }
             }
         }

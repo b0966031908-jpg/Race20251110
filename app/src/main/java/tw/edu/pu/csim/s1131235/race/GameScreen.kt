@@ -3,23 +3,52 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import tw.edu.pu.csim.s1131235.race.GameViewModel
+
+
 
 @Composable
 fun GameScreen(message: String, gameViewModel: GameViewModel) {
 
+    val currentScore = gameViewModel.score
+    val circleX = gameViewModel.circleX
 
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.Yellow)
     ){
+
+
+        Text(
+            text = "作者: 楊承智 ",
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(16.dp)
+        )
+
+
+        Text(
+            text = "分數: $currentScore",
+            fontSize = 24.sp,
+            color = Color.Blue,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        )
+
 
         Canvas (modifier = Modifier.fillMaxSize()
             .pointerInput(Unit) {
@@ -43,6 +72,7 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
         Button(onClick = {gameViewModel.gameRunning = true
                             gameViewModel.StartGame()
         }
+            ,modifier = Modifier.align(Alignment.BottomCenter).padding(top = 32.dp)
         ){
             Text("遊戲開始")
         }
