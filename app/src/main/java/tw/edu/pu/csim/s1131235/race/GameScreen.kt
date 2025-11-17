@@ -25,7 +25,14 @@ import tw.edu.pu.csim.s1131235.race.R
 @Composable
 fun GameScreen(message: String, gameViewModel: GameViewModel) {
 
-    val imageBitmap = ImageBitmap.imageResource(R.drawable.horse0)
+    //val imageBitmap = ImageBitmap.imageResource(R.drawable.horse0)改成下面的陣列
+    val imageBitmaps = listOf(
+        ImageBitmap.imageResource(R.drawable.horse0),
+        ImageBitmap.imageResource(R.drawable.horse1),
+        ImageBitmap.imageResource(R.drawable.horse2),
+        ImageBitmap.imageResource(R.drawable.horse3)
+    )
+
 
     val currentScore = gameViewModel.score
     val circleX = gameViewModel.circleX
@@ -73,8 +80,8 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
             )
 
             drawImage(
-                image = imageBitmap,
-                dstOffset = IntOffset(0,100),
+                image = imageBitmaps[gameViewModel.horse.HorseNo],
+                dstOffset = IntOffset(gameViewModel.horse.HorseX,gameViewModel.horse.HorseY),
                 dstSize = IntSize(200, 200)
             )
 
