@@ -90,4 +90,5 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
             Text("遊戲開始")
         }
     }
+
 }
