@@ -2,11 +2,19 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -44,17 +52,7 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
 
 
         Text(
-            text = "作者: 楊承智 ",
-            fontSize = 18.sp,
-            color = Color.Black,
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(16.dp)
-        )
-
-
-        Text(
-            text = "分數: $currentScore",
+            text = "第 $currentScore 匹馬獲勝",
             fontSize = 24.sp,
             color = Color.Blue,
             modifier = Modifier
@@ -73,18 +71,19 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
 
         ) {
             // 繪製圓形
-            drawCircle(
+            /*drawCircle(
                 color = Color.Red,
                 radius = 100f,
                 center = Offset(gameViewModel.circleX, gameViewModel.circleY)
-            )
+            )*/
 
+            for(i in 0..2) {
             drawImage(
-                image = imageBitmaps[gameViewModel.horse.HorseNo],
-                dstOffset = IntOffset(gameViewModel.horse.HorseX,gameViewModel.horse.HorseY),
+                image = imageBitmaps[gameViewModel.horses[i].HorseNo],
+                dstOffset = IntOffset(gameViewModel.horses[i].HorseX,gameViewModel.horses[i].HorseY),
                 dstSize = IntSize(200, 200)
             )
-
+         }
         }
 
         Text(text = message + gameViewModel.screenWidthPx.toString() + "*" + gameViewModel.screenHeightPx.toString())
@@ -96,6 +95,20 @@ fun GameScreen(message: String, gameViewModel: GameViewModel) {
         ){
             Text("遊戲開始")
         }
-    }
 
+
+            var user by remember { mutableStateOf("") }
+            TextField(
+                value = user,
+                onValueChange = { user = it },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(16.dp)
+            )
+            Text("您下注的馬是：$user",
+                    modifier = Modifier
+                    .align(Alignment.TopCenter)
+                .padding(16.dp))
+            Spacer(modifier = Modifier.size(10.dp))
+        }
 }

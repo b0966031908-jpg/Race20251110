@@ -1,8 +1,8 @@
 package tw.edu.pu.csim.s1131235.race
 
-class Horse() {
+class Horse(n: Int) {
     var HorseX = 0
-    var HorseY = 100
+    var HorseY = 100 + 220 * n
     var HorseNo = 0
 
     fun Run() {
